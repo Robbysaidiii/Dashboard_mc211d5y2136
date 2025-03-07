@@ -51,7 +51,7 @@ Proyek ini bertujuan untuk menganalisis dataset Bike Sharing yang mencakup data 
 # Setup environment
 conda create --name mc211d5y2136 python=3.9
 conda activate mc211d5y2136
-pip install numpy pandas scipy matplotlib seaborn 
+pip install -r requirements.txt
 
 # Run steamlit app
 streamlit run dashboard/Dashboard.py

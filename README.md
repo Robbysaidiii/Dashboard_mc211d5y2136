@@ -54,6 +54,6 @@ conda activate mc211d5y2136
 pip install numpy pandas scipy matplotlib seaborn 
 
 # Run steamlit app
-streamlit run Dashboard/dashboard.py
+streamlit run dashboard/Dashboard.py
 
 

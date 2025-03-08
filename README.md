@@ -19,18 +19,18 @@ Proyek ini bertujuan untuk menganalisis dataset Bike Sharing yang mencakup data 
 - Dataset `hour.csv` berisi 17.379 baris dan 17 kolom.
 
 ### Assessing Data
-- **Dataset `day.csv`:**
+- **Dataset `day.csv`:
   - Tidak ada nilai yang hilang (missing values).
   - Tidak ada data yang terduplikat.
   - Statistik deskriptif menunjukkan data yang konsisten dan tidak ada nilai yang tidak masuk akal.
 
-- **Dataset `hour.csv`:**
+- **Dataset `hour.csv`:
   - Tidak ada nilai yang hilang (missing values).
   - Tidak ada data yang terduplikat.
   - Statistik deskriptif menunjukkan data yang konsisten dan tidak ada nilai yang tidak masuk akal.
 
 ### Cleaning Data
-- **Duplicate Data:**
+- Duplicate Data:
   - Tidak ada data yang terduplikat di kedua dataset, namun dilakukan penghapusan duplikat sebagai langkah pencegahan.
   
 - **Missing Values:**

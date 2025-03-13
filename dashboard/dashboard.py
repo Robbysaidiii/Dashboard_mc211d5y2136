@@ -15,7 +15,8 @@ option = st.sidebar.selectbox(
         "Korelasi Antara Variabel DAY",
         "Korelasi Antara Variabel HOUR",
         "Tren Penyewaan Sepeda per Bulan",
-        "Dampak Cuaca terhadap Penyewaan Sepeda"
+        "Dampak Cuaca terhadap Penyewaan Sepeda",
+        "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam"
     ]
 )
 
@@ -125,3 +126,11 @@ else:
             # Tampilkan visualisasi
             st.pyplot(fig)
 
+      elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam":
+        st.subheader("⏰ Distribusi Jumlah Sewa Sepeda Berdasarkan Jam")
+        fig, ax = plt.subplots()
+        sns.histplot(hour['cnt'], bins=30, kde=True, ax=ax)
+        ax.set_title("Data Penyewaan Sepeda yang Diaggregasi per Jam (cnt)")
+        ax.set_xlabel("Jumlah Sewa Sepeda")
+        ax.set_ylabel("Frekuensi")
+        st.pyplot(fig)

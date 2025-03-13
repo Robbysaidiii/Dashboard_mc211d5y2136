@@ -126,7 +126,7 @@ else:
             
             # Tampilkan visualisasi
             st.pyplot(fig)
- elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam":
+      elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam":
         st.subheader("⏰ Distribusi Jumlah Sewa Sepeda Berdasarkan Jam")
         fig, ax = plt.subplots()
         sns.histplot(hour['cnt'], bins=30, kde=True, ax=ax)

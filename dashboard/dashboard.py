@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Judul aplikasi
-st.title("📊 Analisis Data Penyewaan Sepeda")
+st.title("Analisis Data Penyewaan Sepeda")
 
 # Sidebar untuk informasi pengguna dan filter
 st.sidebar.header("Robby Saidi Prasetyo mc211d5y2136")

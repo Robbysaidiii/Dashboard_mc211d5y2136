@@ -22,12 +22,7 @@ option = st.sidebar.selectbox(
 )
 
 # Membaca data
-uploaded_file = st.file_uploader("Upload Hour_day_df.csv", type="csv")
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.write(df.head())  # Menampilkan data
-else:
-    st.warning("Harap upload file Hour_day_df.csv terlebih dahulu.")
+df = pd.read_csv("Hour_day_df.csv")
 hour = pd.read_csv("../data/hour.csv")
 day = pd.read_csv("../data/day.csv")
 

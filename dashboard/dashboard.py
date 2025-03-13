@@ -127,20 +127,3 @@ else:
             # Tampilkan visualisasi
             st.pyplot(fig)
 
-    elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Musim":
-        st.subheader("Distribusi Jumlah Sewa Sepeda Berdasarkan Musim")
-        fig, ax = plt.subplots(figsize=(10, 5))
-        sns.histplot(filtered_df, x='cnt_y', hue='season_label', bins=30, kde=True, palette='coolwarm', ax=ax)
-        ax.set_title("Distribusi Jumlah Sewa Sepeda Berdasarkan Musim")
-        ax.set_xlabel("Jumlah Sewa Sepeda")
-        ax.set_ylabel("Frekuensi")
-        st.pyplot(fig)
-
-    elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Tahun":
-        st.subheader("Distribusi Jumlah Sewa Sepeda Berdasarkan Tahun")
-        fig, ax = plt.subplots(figsize=(10, 5))
-        sns.histplot(filtered_df, x='cnt_y', hue='yr_x', bins=30, kde=True, palette='bwr', ax=ax)
-        ax.set_title("Distribusi Jumlah Sewa Sepeda Berdasarkan Tahun")
-        ax.set_xlabel("Jumlah Sewa Sepeda")
-        ax.set_ylabel("Frekuensi")
-        st.pyplot(fig)

@@ -15,9 +15,7 @@ option = st.sidebar.selectbox(
         "Korelasi Antara Variabel DAY",
         "Korelasi Antara Variabel HOUR",
         "Tren Penyewaan Sepeda per Bulan",
-        "Dampak Cuaca terhadap Penyewaan Sepeda",
-        "Distribusi Jumlah Sewa Sepeda Berdasarkan Musim",
-        "Distribusi Jumlah Sewa Sepeda Berdasarkan Tahun"
+        "Dampak Cuaca terhadap Penyewaan Sepeda"
     ]
 )
 

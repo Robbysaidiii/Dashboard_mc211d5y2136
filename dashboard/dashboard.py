@@ -21,9 +21,9 @@ option = st.sidebar.selectbox(
 )
 
 # Membaca data
-df = pd.read_csv("Hour_day_df.csv")
-hour = pd.read_csv("../data/hour.csv")
-day = pd.read_csv("../data/day.csv")
+df = pd.read_csv("dashboard/Hour_day_df.csv")
+hour = pd.read_csv("data/hour.csv")
+day = pd.read_csv("data/day.csv")
 
 # Mapping untuk musim
 season_mapping = {1: "Musim Semi", 2: "Musim Panas", 3: "Musim Gugur", 4: "Musim Dingin"}

@@ -23,8 +23,8 @@ option = st.sidebar.selectbox(
 
 # Membaca data
 df = pd.read_csv("dashboard/Hour_day_df.csv")
-hour = pd.read_csv("../data/hour.csv")
-day = pd.read_csv("../data/day.csv")
+hour = pd.read_csv("data/hour.csv")
+day = pd.read_csv("data/day.csv")
 
 # Mapping untuk musim
 season_mapping = {

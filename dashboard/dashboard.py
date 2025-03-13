@@ -16,8 +16,7 @@ option = st.sidebar.selectbox(
         "Korelasi Antara Variabel HOUR",
         "Tren Penyewaan Sepeda per Bulan",
         "Dampak Cuaca terhadap Penyewaan Sepeda",
-        "Distribusi Jumlah Sewa Sepeda Berdasarkan Musim",
-        "Distribusi Jumlah Sewa Sepeda Berdasarkan Tahun"
+        "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam"
     ]
 )
 
@@ -27,12 +26,7 @@ hour = pd.read_csv("../data/hour.csv")
 day = pd.read_csv("../data/day.csv")
 
 # Mapping untuk musim
-season_mapping = {
-    1: "Musim Semi",
-    2: "Musim Panas",
-    3: "Musim Gugur",
-    4: "Musim Dingin"
-}
+season_mapping = {1: "Musim Semi", 2: "Musim Panas", 3: "Musim Gugur", 4: "Musim Dingin"}
 df['season_label'] = df['season_x'].map(season_mapping)
 
 # Mapping untuk cuaca
@@ -45,22 +39,12 @@ weather_mapping = {
 df['weather_label'] = df['weathersit_x'].map(weather_mapping)
 
 # Filter berdasarkan musim
-season_filter = st.sidebar.selectbox(
-    "Pilih Musim",
-    ["Semua"] + list(season_mapping.values())
-)
-if season_filter != "Semua":
-    filtered_df = df[df['season_label'] == season_filter]
-else:
-    filtered_df = df
+season_filter = st.sidebar.selectbox("Pilih Musim", ["Semua"] + list(season_mapping.values()))
+filtered_df = df if season_filter == "Semua" else df[df['season_label'] == season_filter]
 
 # Filter berdasarkan cuaca
-weather_filter = st.sidebar.selectbox(
-    "Pilih Cuaca",
-    ["Semua"] + list(weather_mapping.values())
-)
-if weather_filter != "Semua":
-    filtered_df = filtered_df[filtered_df['weather_label'] == weather_filter]
+weather_filter = st.sidebar.selectbox("Pilih Cuaca", ["Semua"] + list(weather_mapping.values()))
+filtered_df = filtered_df if weather_filter == "Semua" else filtered_df[filtered_df['weather_label'] == weather_filter]
 
 # Pengecekan data kosong setelah filter
 if filtered_df.empty:
@@ -108,25 +92,21 @@ else:
     elif option == "Dampak Cuaca terhadap Penyewaan Sepeda":
         st.subheader("☁️ Dampak Cuaca terhadap Penyewaan Sepeda")
         
-        # Pastikan kolom 'weather_label' dan 'cnt_y' ada di DataFrame
         if 'weather_label' not in filtered_df.columns or 'cnt_y' not in filtered_df.columns:
             st.error("Kolom 'weather_label' atau 'cnt_y' tidak ditemukan di DataFrame.")
         else:
-            # Kelompokkan data berdasarkan cuaca dan hitung total penyewaan
             weather_impact = filtered_df.groupby('weather_label').agg({"cnt_y": "sum"}).reset_index()
             weather_impact.columns = ["Cuaca", "Total Penyewaan"]
             
-            # Buat visualisasi
             fig, ax = plt.subplots(figsize=(8, 5))
             sns.barplot(data=weather_impact, x="Cuaca", y="Total Penyewaan", palette="coolwarm", ax=ax)
             ax.set_title("Dampak Cuaca terhadap Penyewaan Sepeda")
             ax.set_xlabel("Kondisi Cuaca")
             ax.set_ylabel("Total Penyewaan Sepeda")
             ax.grid(axis="y", linestyle="--", alpha=0.7)
-            
-            # Tampilkan visualisasi
             st.pyplot(fig)
-      elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam":
+
+    elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam":
         st.subheader("⏰ Distribusi Jumlah Sewa Sepeda Berdasarkan Jam")
         fig, ax = plt.subplots()
         sns.histplot(hour['cnt'], bins=30, kde=True, ax=ax)

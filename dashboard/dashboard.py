@@ -22,7 +22,7 @@ option = st.sidebar.selectbox(
 )
 
 # Membaca data
-df = pd.read_csv("Hour_day_df.csv")
+df = pd.read_csv("../Hour_day_df.csv")
 hour = pd.read_csv("../data/hour.csv")
 day = pd.read_csv("../data/day.csv")
 

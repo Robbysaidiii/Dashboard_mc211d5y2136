@@ -90,28 +90,45 @@ else:
         st.pyplot(fig)
 
     elif option == "Dampak Cuaca terhadap Penyewaan Sepeda":
-        st.subheader("☁️ Dampak Cuaca terhadap Penyewaan Sepeda")
+    st.subheader("☁️ Dampak Cuaca terhadap Penyewaan Sepeda")
 
-        # Debugging print
-        print("Cek sebelum grouping:")
-        print(filtered_df[['weather_label', 'cnt_y']].head())
+    # Pastikan kolom 'weathersit_x' dan 'cnt_y' ada dalam dataset
+    if 'weathersit_x' not in df.columns or 'cnt_y' not in df.columns:
+        st.error("Kolom 'weathersit_x' atau 'cnt_y' tidak ditemukan di DataFrame.")
+    else:
+        # Mengelompokkan data berdasarkan kondisi cuaca
+        weather_impact = df.groupby("weathersit_x").agg({
+            "cnt_y": ["sum", "mean", "count"]
+        }).reset_index()
 
-        if 'weather_label' not in filtered_df.columns or 'cnt_y' not in filtered_df.columns:
-            st.error("Kolom 'weather_label' atau 'cnt_y' tidak ditemukan di DataFrame.")
-        else:
-            weather_impact = filtered_df.groupby('weather_label').agg({"cnt_y": "sum"}).reset_index()
-            weather_impact.columns = ["Cuaca", "Total Penyewaan"]
+        # Memberikan nama kolom baru
+        weather_impact.columns = ["Cuaca", "Total Penyewaan", "Rata-rata Penyewaan", "Jumlah Hari"]
 
-            print("Data setelah grouping:")
-            print(weather_impact)
+        # Mapping label cuaca
+        weather_labels = {
+            1: "Cerah",
+            2: "Mendung",
+            3: "Gerimis",
+            4: "Hujan Lebat"
+        }
+        weather_impact["Cuaca"] = weather_impact["Cuaca"].map(weather_labels)
 
-            fig, ax = plt.subplots(figsize=(8, 5))
-            sns.barplot(data=weather_impact, x="Cuaca", y="Total Penyewaan", palette="coolwarm", ax=ax)
-            ax.set_title("Dampak Cuaca terhadap Penyewaan Sepeda")
-            ax.set_xlabel("Kondisi Cuaca")
-            ax.set_ylabel("Total Penyewaan Sepeda")
-            ax.grid(axis="y", linestyle="--", alpha=0.7)
-            st.pyplot(fig)
+        # Menampilkan tabel data di Streamlit
+        st.write("📊 **Detail Data Penyewaan Sepeda Berdasarkan Cuaca**")
+        st.dataframe(weather_impact)
+
+        # Membuat visualisasi menggunakan seaborn
+        fig, ax = plt.subplots(figsize=(8, 5))
+        sns.barplot(data=weather_impact, x="Cuaca", y="Total Penyewaan", palette="coolwarm", ax=ax)
+
+        ax.set_xlabel("Kondisi Cuaca")
+        ax.set_ylabel("Total Penyewaan Sepeda")
+        ax.set_title("Dampak Cuaca terhadap Penyewaan Sepeda")
+        ax.grid(axis="y", linestyle="--", alpha=0.7)
+
+        # Menampilkan plot di Streamlit
+        st.pyplot(fig)
+
 
     elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam":
         st.subheader("⏰ Distribusi Jumlah Sewa Sepeda Berdasarkan Jam")

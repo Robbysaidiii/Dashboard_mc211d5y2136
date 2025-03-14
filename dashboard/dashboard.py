@@ -90,28 +90,28 @@ else:
         st.pyplot(fig)
 
     elif option == "Dampak Cuaca terhadap Penyewaan Sepeda":
-    st.subheader("☁️ Dampak Cuaca terhadap Penyewaan Sepeda")
-    
-    print("Cek sebelum grouping:")
-    print(filtered_df[['weather_label', 'cnt_y']].head())
+        st.subheader("☁️ Dampak Cuaca terhadap Penyewaan Sepeda")
 
-    if 'weather_label' not in filtered_df.columns or 'cnt_y' not in filtered_df.columns:
-        st.error("Kolom 'weather_label' atau 'cnt_y' tidak ditemukan di DataFrame.")
-    else:
-        weather_impact = filtered_df.groupby('weather_label').agg({"cnt_y": "sum"}).reset_index()
-        weather_impact.columns = ["Cuaca", "Total Penyewaan"]
+        # Debugging print
+        print("Cek sebelum grouping:")
+        print(filtered_df[['weather_label', 'cnt_y']].head())
 
-        print("Data setelah grouping:")
-        print(weather_impact)
+        if 'weather_label' not in filtered_df.columns or 'cnt_y' not in filtered_df.columns:
+            st.error("Kolom 'weather_label' atau 'cnt_y' tidak ditemukan di DataFrame.")
+        else:
+            weather_impact = filtered_df.groupby('weather_label').agg({"cnt_y": "sum"}).reset_index()
+            weather_impact.columns = ["Cuaca", "Total Penyewaan"]
 
-        fig, ax = plt.subplots(figsize=(8, 5))
-        sns.barplot(data=weather_impact, x="Cuaca", y="Total Penyewaan", palette="coolwarm", ax=ax)
-        ax.set_title("Dampak Cuaca terhadap Penyewaan Sepeda")
-        ax.set_xlabel("Kondisi Cuaca")
-        ax.set_ylabel("Total Penyewaan Sepeda")
-        ax.grid(axis="y", linestyle="--", alpha=0.7)
-        st.pyplot(fig)
+            print("Data setelah grouping:")
+            print(weather_impact)
 
+            fig, ax = plt.subplots(figsize=(8, 5))
+            sns.barplot(data=weather_impact, x="Cuaca", y="Total Penyewaan", palette="coolwarm", ax=ax)
+            ax.set_title("Dampak Cuaca terhadap Penyewaan Sepeda")
+            ax.set_xlabel("Kondisi Cuaca")
+            ax.set_ylabel("Total Penyewaan Sepeda")
+            ax.grid(axis="y", linestyle="--", alpha=0.7)
+            st.pyplot(fig)
 
     elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam":
         st.subheader("⏰ Distribusi Jumlah Sewa Sepeda Berdasarkan Jam")

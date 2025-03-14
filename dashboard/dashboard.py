@@ -101,7 +101,6 @@ else:
                 "cnt_y": ["sum", "mean", "count"]
             }).reset_index()
 
-            
             weather_impact.columns = ["Cuaca", "Total Penyewaan", "Rata-rata Penyewaan", "Jumlah Hari"]
             weather_labels = {
                 1: "Cerah",
@@ -119,25 +118,25 @@ else:
             ax.set_title("Dampak Cuaca terhadap Penyewaan Sepeda")
             ax.grid(axis="y", linestyle="--", alpha=0.7)
             st.pyplot(fig)
+
             # Menambahkan penjelasan mengenai dampak cuaca
-st.markdown("""
-### 📌 Analisis Dampak Cuaca terhadap Penyewaan Sepeda
-Cuaca memiliki pengaruh besar terhadap jumlah penyewaan sepeda. Dari visualisasi di atas, kita dapat melihat tren penyewaan sepeda berdasarkan kondisi cuaca:
+            st.markdown("""
+            ### 📌 Analisis Dampak Cuaca terhadap Penyewaan Sepeda
+            Cuaca memiliki pengaruh besar terhadap jumlah penyewaan sepeda. Dari visualisasi di atas, kita dapat melihat tren penyewaan sepeda berdasarkan kondisi cuaca:
 
-- **Hujan Lebat 🌧️** → Tidak ada penyewaan sepeda, menunjukkan bahwa pengguna cenderung menghindari sepeda dalam kondisi ekstrem seperti hujan deras atau badai.
-- **Hujan Ringan / Gerimis 🌦️** → Penyewaan sepeda masih ada tetapi sangat sedikit (sekitar **0,1**), menunjukkan bahwa beberapa pengguna tetap menyewa sepeda meskipun hujan ringan.
-- **Mendung / Berawan ☁️** → Penyewaan meningkat signifikan (**1,8**), menunjukkan bahwa kondisi mendung lebih nyaman untuk bersepeda dibandingkan saat hujan.
-- **Cerah ☀️** → Penyewaan tertinggi (**5**), menunjukkan bahwa cuaca cerah adalah kondisi paling ideal untuk bersepeda, baik untuk perjalanan sehari-hari maupun rekreasi.
+            - **Hujan Lebat 🌧️** → Tidak ada penyewaan sepeda, menunjukkan bahwa pengguna cenderung menghindari sepeda dalam kondisi ekstrem seperti hujan deras atau badai.
+            - **Hujan Ringan / Gerimis 🌦️** → Penyewaan sepeda masih ada tetapi sangat sedikit (sekitar **0,1**), menunjukkan bahwa beberapa pengguna tetap menyewa sepeda meskipun hujan ringan.
+            - **Mendung / Berawan ☁️** → Penyewaan meningkat signifikan (**1,8**), menunjukkan bahwa kondisi mendung lebih nyaman untuk bersepeda dibandingkan saat hujan.
+            - **Cerah ☀️** → Penyewaan tertinggi (**5**), menunjukkan bahwa cuaca cerah adalah kondisi paling ideal untuk bersepeda, baik untuk perjalanan sehari-hari maupun rekreasi.
 
-### 📢 **Kesimpulan**
-Dari hasil analisis, dapat disimpulkan bahwa **cuaca sangat berpengaruh terhadap penyewaan sepeda**:
-- Saat **hujan deras**, penyewaan **sangat rendah atau bahkan nol**.
-- Saat **mendung**, penyewaan tetap tinggi.
-- Saat **cerah**, jumlah penyewaan **meningkat secara signifikan**.
+            ### 📢 **Kesimpulan**
+            Dari hasil analisis, dapat disimpulkan bahwa **cuaca sangat berpengaruh terhadap penyewaan sepeda**:
+            - Saat **hujan deras**, penyewaan **sangat rendah atau bahkan nol**.
+            - Saat **mendung**, penyewaan tetap tinggi.
+            - Saat **cerah**, jumlah penyewaan **meningkat secara signifikan**.
 
-**Rekomendasi:** Untuk meningkatkan penyewaan sepeda saat cuaca kurang mendukung, operator penyewaan sepeda dapat mempertimbangkan penyediaan fasilitas seperti jas hujan atau shelter di stasiun penyewaan. 🚲☀️
-""")
-
+            **Rekomendasi:** Untuk meningkatkan penyewaan sepeda saat cuaca kurang mendukung, operator penyewaan sepeda dapat mempertimbangkan penyediaan fasilitas seperti jas hujan atau shelter di stasiun penyewaan. 🚲☀️
+            """)
 
     elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam":
         st.subheader("⏰ Distribusi Jumlah Sewa Sepeda Berdasarkan Jam")

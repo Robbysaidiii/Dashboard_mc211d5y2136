@@ -58,6 +58,9 @@ else:
         ax.set_xlabel("Jumlah Sewa Sepeda")
         ax.set_ylabel("Frekuensi")
         st.pyplot(fig)
+        st.markdown("""Distribusi jumlah penyewaan sepeda menunjukkan pola mendekati normal dengan beberapa variasi. 
+        Mayoritas penyewaan terjadi dalam rentang 3000–5000 sepeda per periode, tetapi ada beberapa variasi yang mungkin dipengaruhi oleh faktor eksternal seperti cuaca, 
+        musim, atau hari dalam seminggu.""")
 
     elif option == "Korelasi Antara Variabel DAY":
         st.subheader("🌡️ Korelasi Variabel DAY")

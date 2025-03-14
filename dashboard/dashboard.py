@@ -79,7 +79,7 @@ else:
 
     elif option == "Tren Penyewaan Sepeda per Bulan":
         st.subheader("📅 Tren Penyewaan Sepeda per Bulan")
-        monthly_orders_df = filtered_df.groupby('mnth_x').agg({"cnt_y": "sum"}).reset_index()
+        monthly_orders_df =  day.groupby('mnth')['cnt'].mean().reset_index()
         monthly_orders_df.columns = ["Bulan", "Total Penyewaan"]
         fig, ax = plt.subplots(figsize=(12, 6))
         sns.lineplot(data=monthly_orders_df, x="Bulan", y="Total Penyewaan", marker="o", color="#1f77b4", ax=ax)

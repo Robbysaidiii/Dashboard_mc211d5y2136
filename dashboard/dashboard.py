@@ -90,18 +90,28 @@ else:
         st.pyplot(fig)
 
     elif option == "Dampak Cuaca terhadap Penyewaan Sepeda":
-        st.subheader("☁️ Dampak Cuaca terhadap Penyewaan Sepeda")
-        
-        if 'weather_label' not in filtered_df.columns or 'cnt_y' not in filtered_df.columns:
-            st.error("Kolom 'weather_label' atau 'cnt_y' tidak ditemukan di DataFrame.")
+    st.subheader("☁️ Dampak Cuaca terhadap Penyewaan Sepeda")
+    if 'weathersit_y' not in day.columns or 'cnt_y' not in day.columns:
+        st.error("Kolom 'weathersit_y' atau 'cnt_y' tidak ditemukan di DataFrame.")
+    else:
+        weather_mapping = {
+            1: "Cerah",
+            2: "Kabut/Berawan",
+            3: "Hujan Ringan/Salju Ringan",
+            4: "Hujan Lebat/Salju Lebat"
+        }
+        day['weather_label'] = day['weathersit_y'].map(weather_mapping)
+        if day['weather_label'].isnull().all():
+            st.error("Tidak ada data cuaca yang valid setelah mapping.")
         else:
-            weather_rentals = day.groupby('weathersit')['cnt'].mean().reset_index()
-            plt.figure(figsize=(10, 6))
-            sns.barplot(x='weathersit', y='cnt', data=weather_rentals)
-            plt.title(' VIsualdata Dampak cuaca terhadap penyewaan sepeda')
-            plt.xlabel('Kondisi Cuaca')
-            plt.ylabel('Rata-rata Penyewaan Sepeda')
-            plt.show()
+            weather_rentals = day.groupby('weather_label')['cnt_y'].mean().reset_index()
+            fig, ax = plt.subplots(figsize=(10, 6))
+            sns.barplot(x='weather_label', y='cnt_y', data=weather_rentals, ax=ax, palette="Blues")
+            ax.set_title('Dampak Cuaca terhadap Penyewaan Sepeda')
+            ax.set_xlabel('Kondisi Cuaca')
+            ax.set_ylabel('Rata-rata Penyewaan Sepeda')
+            ax.set_xticklabels(ax.get_xticklabels(), rotation=30)
+            st.pyplot(fig)
 
     elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam":
         st.subheader("⏰ Distribusi Jumlah Sewa Sepeda Berdasarkan Jam")

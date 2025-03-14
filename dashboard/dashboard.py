@@ -107,6 +107,15 @@ else:
             ax.set_title('Dampak Cuaca terhadap Penyewaan Sepeda')
             ax.set_xlabel('Kondisi Cuaca')
             ax.set_ylabel('Rata-rata Penyewaan Sepeda')
+            
+            # Menyesuaikan sumbu y sesuai dengan file
+            ax.set_ylim(0, 5000)
+            ax.set_yticks([1000, 2000, 3000, 4000, 5000])
+            
+            # Menambahkan label pada sumbu x sesuai dengan file
+            ax.set_xticks([0, 1, 2])
+            ax.set_xticklabels(['1', '2', '3'])
+            
             plt.xticks(rotation=45)
             st.pyplot(fig)
 

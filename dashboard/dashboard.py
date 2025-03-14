@@ -70,6 +70,59 @@ else:
         sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', vmin=-1, vmax=1, ax=ax)
         ax.set_title("Matriks Korelasi Variabel DAY")
         st.pyplot(fig)
+        st.markdown("""Variabel yang Terlibat:
+
+instant: Mungkin merujuk pada indeks atau waktu pengamatan.
+
+season: Musim (mungkin dikodekan sebagai angka).
+
+yr: Tahun (mungkin 0 untuk tahun pertama dan 1 untuk tahun kedua).
+
+mnth: Bulan dalam setahun.
+
+holiday: Apakah hari tersebut adalah hari libur (1) atau bukan (0).
+
+weekday: Hari dalam seminggu.
+
+workingday: Apakah hari tersebut adalah hari kerja (1) atau bukan (0).
+
+weathersit: Kondisi cuaca.
+
+temp: Suhu udara.
+
+atemp: Suhu yang dirasakan.
+
+hum: Kelembaban.
+
+windspeed: Kecepatan angin.
+
+casual: Jumlah pengguna sepeda kasual.
+
+registered: Jumlah pengguna sepeda terdaftar.
+
+cnt: Total jumlah pengguna sepeda (mungkin jumlah dari casual dan registered).
+
+Matriks Korelasi:
+
+Setiap sel dalam tabel menunjukkan nilai korelasi antara dua variabel. Misalnya, korelasi antara instant dan season adalah 0.41, yang menunjukkan hubungan positif yang moderat.
+
+Korelasi antara temp dan atemp adalah 0.99, yang menunjukkan hubungan positif yang sangat kuat, karena suhu yang dirasakan biasanya sangat mirip dengan suhu aktual.
+
+Korelasi antara holiday dan workingday adalah -0.25, yang menunjukkan hubungan negatif yang lemah, karena hari libur biasanya bukan hari kerja.
+
+Interpretasi Beberapa Korelasi Menarik:
+
+instant memiliki korelasi yang cukup tinggi dengan registered (0.66) dan cnt (0.62), menunjukkan bahwa seiring berjalannya waktu, jumlah pengguna sepeda terdaftar dan total pengguna sepeda cenderung meningkat.
+
+temp dan atemp memiliki korelasi yang sangat tinggi dengan casual (0.54) dan cnt (0.63), menunjukkan bahwa suhu yang lebih tinggi cenderung meningkatkan jumlah pengguna sepeda.
+
+weathersit memiliki korelasi negatif dengan casual (-0.25) dan cnt (-0.30), menunjukkan bahwa kondisi cuaca yang buruk cenderung mengurangi jumlah pengguna sepeda.
+
+Kesimpulan:
+
+Heatmap ini membantu dalam memahami hubungan antara berbagai variabel dalam dataset. Korelasi yang tinggi antara variabel tertentu dapat menunjukkan adanya hubungan yang kuat, yang mungkin berguna untuk analisis lebih lanjut atau pemodelan prediktif.
+
+Variabel seperti suhu dan kondisi cuaca tampaknya memiliki pengaruh yang signifikan terhadap jumlah pengguna sepeda, baik yang kasual maupun terdaftar.""")
 
     elif option == "Korelasi Antara Variabel HOUR":
         st.subheader("⏳ Korelasi Variabel HOUR")

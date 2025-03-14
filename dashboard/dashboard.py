@@ -53,7 +53,7 @@ else:
     if option == "Distribusi Jumlah Penyewaan Sepeda":
         st.subheader("📈 Distribusi Jumlah Penyewaan Sepeda")
         fig, ax = plt.subplots()
-        sns.histplot(data=[filtered_df['cnt_y'], day['cnt']], bins=30, kde=True, multiple="layer", ax=ax)
+        sns.histplot(data=[filtered_df['cnt_y'], bins=30, kde=True, multiple="layer", ax=ax)
         ax.set_title("Data Penyewaan Sepeda")
         ax.set_xlabel("Jumlah Sewa Sepeda")
         ax.set_ylabel("Frekuensi")

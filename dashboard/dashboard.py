@@ -104,6 +104,9 @@ Variabel seperti suhu dan kondisi cuaca tampaknya memiliki pengaruh yang signifi
         ax.set_xticklabels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
         ax.grid(axis="y", linestyle="--", alpha=0.7)
         st.pyplot(fig)
+        st.markdown("""Penyewaan sepeda cenderung meningkat selama blan-bulan musim panas Juni, Juli, Agustus dan menurun selama bulan-bulan musim dingin Desember, Januari, Februari.
+
+Bulan Juni miliki rata-rata penyewaan sepeda tertinggi, sementara bulan Desember memiliki rata-rata penyewaan sepeda terendah.""")
 
     elif option == "Dampak Cuaca terhadap Penyewaan Sepeda":
         st.subheader("☁️ Dampak Cuaca terhadap Penyewaan Sepeda")
@@ -162,3 +165,7 @@ Variabel seperti suhu dan kondisi cuaca tampaknya memiliki pengaruh yang signifi
         ax.set_xlabel("Jumlah Sewa Sepeda")
         ax.set_ylabel("Frekuensi")
         st.pyplot(fig)
+        st.markdown("""kita lihat digambar ini yang menunnjukan data penyewaan sepeda per jam nya
+
+contoh 200 jam sepeda yang disewa 1000 jam lebih yang arti nya banyak penyewa sepeda yang mencapai 1000 jam
+""")

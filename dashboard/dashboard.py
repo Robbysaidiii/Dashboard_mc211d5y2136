@@ -50,74 +50,42 @@ filtered_df = filtered_df if weather_filter == "Semua" else filtered_df[filtered
 if filtered_df.empty:
     st.warning("Tidak ada data yang sesuai dengan filter yang dipilih.")
 else:
-    if option == "Distribusi Jumlah Penyewaan Sepeda":
-        st.subheader("📈 Distribusi Jumlah Penyewaan Sepeda")
-        fig, ax = plt.subplots()
-        sns.histplot(filtered_df['cnt_y'], bins=30, kde=True, ax=ax)
-        ax.set_title("Data Penyewaan Sepeda")
-        ax.set_xlabel("Jumlah Sewa Sepeda")
-        ax.set_ylabel("Frekuensi")
-        st.pyplot(fig)
+    if option == "Dampak Cuaca terhadap Penyewaan Sepeda":
+        st.subheader("☁️ Dampak Cuaca terhadap Penyewaan Sepeda")
 
-    elif option == "Korelasi Antara Variabel DAY":
-        st.subheader("🌡️ Korelasi Variabel DAY")
-        numerical_columns = day.select_dtypes(include=['number']).columns
-        correlation_matrix = day[numerical_columns].corr()
-        fig, ax = plt.subplots(figsize=(10, 6))
-        sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', vmin=-1, vmax=1, ax=ax)
-        ax.set_title("Matriks Korelasi Variabel DAY")
-        st.pyplot(fig)
-
-    elif option == "Korelasi Antara Variabel HOUR":
-        st.subheader("⏳ Korelasi Variabel HOUR")
-        numerical_columns = hour.select_dtypes(include=['number']).columns
-        correlation_matrix = hour[numerical_columns].corr()
-        fig, ax = plt.subplots(figsize=(12, 8))
-        sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', vmin=-1, vmax=1, ax=ax)
-        ax.set_title("Heatmap Korelasi Antar Variabel Numerik")
-        st.pyplot(fig)
-
-    elif option == "Tren Penyewaan Sepeda per Bulan":
-        st.subheader("📅 Tren Penyewaan Sepeda per Bulan")
-        monthly_orders_df = filtered_df.groupby('mnth_x').agg({"cnt_y": "sum"}).reset_index()
-        monthly_orders_df.columns = ["Bulan", "Total Penyewaan"]
-        fig, ax = plt.subplots(figsize=(12, 6))
-        sns.lineplot(data=monthly_orders_df, x="Bulan", y="Total Penyewaan", palette="Blues", marker="o", color="#1f77b4", ax=ax)
-        ax.set_title("Tren Penyewaan Sepeda per Bulan")
-        ax.set_xlabel("Bulan")
-        ax.set_ylabel("Total Penyewaan Sepeda")
-        ax.grid(axis="y", linestyle="--", alpha=0.7)
-        st.pyplot(fig)
-
-    elif option == "Dampak Cuaca terhadap Penyewaan Sepeda":
-    st.subheader("☁️ Dampak Cuaca terhadap Penyewaan Sepeda")
-    if 'weathersit_y' not in day.columns or 'cnt_y' not in day.columns:
-        st.error("Kolom 'weathersit_y' atau 'cnt_y' tidak ditemukan di DataFrame.")
-    else:
-        weather_mapping = {
-            1: "Cerah",
-            2: "Kabut/Berawan",
-            3: "Hujan Ringan/Salju Ringan",
-            4: "Hujan Lebat/Salju Lebat"
-        }
-        day['weather_label'] = day['weathersit_y'].map(weather_mapping)
-        if day['weather_label'].isnull().all():
-            st.error("Tidak ada data cuaca yang valid setelah mapping.")
+        # Pastikan DataFrame 'day' memiliki kolom yang diperlukan
+        required_columns = {'weathersit_y', 'cnt_y'}
+        missing_columns = required_columns - set(day.columns)
+        
+        if missing_columns:
+            st.error(f"Kolom berikut tidak ditemukan di DataFrame: {', '.join(missing_columns)}")
         else:
-            weather_rentals = day.groupby('weather_label')['cnt_y'].mean().reset_index()
-            fig, ax = plt.subplots(figsize=(10, 6))
-            sns.barplot(x='weather_label', y='cnt_y', data=weather_rentals, ax=ax, palette="Blues")
-            ax.set_title('Dampak Cuaca terhadap Penyewaan Sepeda')
-            ax.set_xlabel('Kondisi Cuaca')
-            ax.set_ylabel('Rata-rata Penyewaan Sepeda')
-            ax.set_xticklabels(ax.get_xticklabels(), rotation=30)
-            st.pyplot(fig)
+            # Mapping nilai numerik cuaca ke label deskriptif
+            weather_mapping = {
+                1: "Cerah",
+                2: "Kabut/Berawan",
+                3: "Hujan Ringan/Salju Ringan",
+                4: "Hujan Lebat/Salju Lebat"
+            }
+            day = day.copy()  # Hindari SettingWithCopyWarning
+            day['weather_label'] = day['weathersit_y'].map(weather_mapping)
 
-    elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam":
-        st.subheader("⏰ Distribusi Jumlah Sewa Sepeda Berdasarkan Jam")
-        fig, ax = plt.subplots()
-        sns.histplot(hour['cnt'], bins=30, kde=True, ax=ax)
-        ax.set_title("Data Penyewaan Sepeda yang Diaggregasi per Jam (cnt)")
-        ax.set_xlabel("Jumlah Sewa Sepeda")
-        ax.set_ylabel("Frekuensi")
-        st.pyplot(fig)
+            # Hapus baris dengan nilai NaN setelah mapping
+            day = day.dropna(subset=['weather_label'])
+            
+            if day.empty:
+                st.warning("Tidak ada data cuaca yang valid setelah mapping dan filter.")
+            else:
+                # Hitung rata-rata penyewaan berdasarkan kondisi cuaca
+                weather_rentals = day.groupby('weather_label', as_index=False)['cnt_y'].mean()
+                
+                # Visualisasi dengan seaborn
+                fig, ax = plt.subplots(figsize=(10, 6))
+                sns.barplot(x='weather_label', y='cnt_y', data=weather_rentals, ax=ax, palette="Blues")
+                ax.set_title('Dampak Cuaca terhadap Penyewaan Sepeda')
+                ax.set_xlabel('Kondisi Cuaca')
+                ax.set_ylabel('Rata-rata Penyewaan Sepeda')
+                ax.set_xticklabels(ax.get_xticklabels(), rotation=30)
+                
+                # Tampilkan plot di Streamlit
+                st.pyplot(fig)

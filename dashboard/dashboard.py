@@ -1,4 +1,4 @@
-import streamlit as st
+    import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -95,7 +95,11 @@ else:
         if 'weather_label' not in filtered_df.columns or 'cnt_y' not in filtered_df.columns:
             st.error("Kolom 'weather_label' atau 'cnt_y' tidak ditemukan di DataFrame.")
         else:
+            # Mengelompokkan data berdasarkan kondisi cuaca dan menghitung rata-rata penyewaan
             weather_rentals = filtered_df.groupby('weather_label')['cnt_y'].mean().reset_index()
+            
+            # Memastikan hanya ada 3 kondisi cuaca yang ditampilkan
+            weather_rentals = weather_rentals.head(3)
             
             # Visualisasi
             fig, ax = plt.subplots(figsize=(10, 6))

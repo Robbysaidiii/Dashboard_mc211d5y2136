@@ -86,6 +86,7 @@ else:
         ax.set_title("Tren Penyewaan Sepeda per Bulan")
         ax.set_xlabel("Bulan")
         ax.set_ylabel("Total Penyewaan Sepeda")
+        ax.xticks(range(1, 13), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
         ax.grid(axis="y", linestyle="--", alpha=0.7)
         st.pyplot(fig)
 

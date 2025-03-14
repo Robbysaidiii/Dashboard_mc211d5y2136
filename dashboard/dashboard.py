@@ -95,28 +95,15 @@ else:
         if 'weather_label' not in filtered_df.columns or 'cnt_y' not in filtered_df.columns:
             st.error("Kolom 'weather_label' atau 'cnt_y' tidak ditemukan di DataFrame.")
         else:
-            # Mengelompokkan data berdasarkan kondisi cuaca dan menghitung rata-rata penyewaan
-            weather_rentals = filtered_df.groupby('weather_label')['cnt_y'].mean().reset_index()
+            weather_impact = filtered_df.groupby('weather_label').agg({"cnt_y": "sum"}).reset_index()
+            weather_impact.columns = ["Cuaca", "Total Penyewaan"]
             
-            # Memastikan hanya ada 3 kondisi cuaca yang ditampilkan
-            weather_rentals = weather_rentals.head(3)
-            
-            # Visualisasi
-            fig, ax = plt.subplots(figsize=(10, 6))
-            sns.barplot(x='weather_label', y='cnt_y', data=weather_rentals, ax=ax)
-            ax.set_title('Dampak Cuaca terhadap Penyewaan Sepeda')
-            ax.set_xlabel('Kondisi Cuaca')
-            ax.set_ylabel('Rata-rata Penyewaan Sepeda')
-            
-            # Menyesuaikan sumbu y sesuai dengan file
-            ax.set_ylim(0, 5000)
-            ax.set_yticks([1000, 2000, 3000, 4000, 5000])
-            
-            # Menambahkan label pada sumbu x sesuai dengan file
-            ax.set_xticks([0, 1, 2])
-            ax.set_xticklabels(['1', '2', '3'])
-            
-            plt.xticks(rotation=45)
+            fig, ax = plt.subplots(figsize=(8, 5))
+            sns.barplot(data=weather_impact, x="Cuaca", y="Total Penyewaan", palette="coolwarm", ax=ax)
+            ax.set_title("Dampak Cuaca terhadap Penyewaan Sepeda")
+            ax.set_xlabel("Kondisi Cuaca")
+            ax.set_ylabel("Total Penyewaan Sepeda")
+            ax.grid(axis="y", linestyle="--", alpha=0.7)
             st.pyplot(fig)
 
     elif option == "Distribusi Jumlah Sewa Sepeda Berdasarkan Jam":

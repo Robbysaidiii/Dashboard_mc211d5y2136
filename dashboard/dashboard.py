@@ -89,7 +89,7 @@ else:
         ax.grid(axis="y", linestyle="--", alpha=0.7)
         st.pyplot(fig)
 
-    if option == "Dampak Cuaca terhadap Penyewaan Sepeda":
+    elif option == "Dampak Cuaca terhadap Penyewaan Sepeda":
     st.subheader("☁️ Dampak Cuaca terhadap Penyewaan Sepeda")
     
     print("Cek sebelum grouping:")
